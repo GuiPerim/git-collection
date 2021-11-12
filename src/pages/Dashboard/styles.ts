@@ -10,12 +10,12 @@ export const Title = styled.h1`
 
 export const Form = styled.form`
   margin-top: 40px;
-  max-width: 700px;
+  /* max-width: 700px; */
   display: flex;
 
   input {
     flex: 1;
-    height: 70px;
+    height: 60px;
     padding: 0 24px;
     border: 2px solid #e4e4e4;
     border-radius: 8px 0px 0px 8px;
@@ -46,7 +46,7 @@ export const Form = styled.form`
 
 export const Repos = styled.div`
   margin-top: 80px;
-  max-width: 700px;
+  /* max-width: 700px; */
 
   a {
     background: #fff;

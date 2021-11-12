@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Title, Form } from "./styles";
+import { FiChevronRight } from "react-icons/fi";
+import { Title, Form, Repos } from "./styles";
+
 import logo from "../../assets/logo.svg";
 
 export const Dashboard: React.FC = () => {
@@ -12,6 +14,20 @@ export const Dashboard: React.FC = () => {
         <input placeholder="username/reposirory" />
         <button type="submit">Search</button>
       </Form>
+
+      <Repos>
+        <a href="/repositories">
+          <img
+            src="https://avatars.githubusercontent.com/u/16120290?v=4"
+            alt="Repository"
+          />
+          <div>
+            <strong>Teste</strong>
+            <p>Some description here</p>
+          </div>
+          <FiChevronRight size={20} />
+        </a>
+      </Repos>
     </>
   );
 };

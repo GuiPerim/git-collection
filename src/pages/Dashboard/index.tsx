@@ -19,6 +19,7 @@ export const Dashboard: React.FC = () => {
   const [search, setSearch] = useState("");
   const [respos, setRepos] = useState<GithubReposutory[]>([]);
 
+  // TODO: Delete unused stuff
   // function handleSearchChanges(event: ChangeEvent<HTMLInputElement>) {
   //   console.log(event.target.value);
   //   setSearch(event.target.value);
@@ -31,6 +32,8 @@ export const Dashboard: React.FC = () => {
     <>
       <img src={logo} alt="Git Repository" />
       <Title>Repositories list</Title>
+
+      {/* TODO: Convert this to a separared component */}
       <Form>
         <input
           placeholder="username/reposirory"
@@ -39,6 +42,7 @@ export const Dashboard: React.FC = () => {
         <button type="submit">Search</button>
       </Form>
 
+      {/* TODO: Convert this to a separared component */}
       <Repos>
         <a href="/repositories">
           <img

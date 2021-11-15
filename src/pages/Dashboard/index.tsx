@@ -74,7 +74,7 @@ export const Dashboard: React.FC = () => {
       <Repos>
         {repos.map((repo) => {
           return (
-            <a href="/repositories" key={repo.full_name}>
+            <a href={`/repositories/${repo.full_name}`} key={repo.full_name}>
               <img src={repo.owner.avatar_url} alt={repo.owner.login} />
               <div>
                 <strong>{repo.full_name}</strong>

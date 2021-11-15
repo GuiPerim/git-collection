@@ -1,11 +1,12 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { FiChevronRight } from "react-icons/fi";
-import { Title, Form, Repos } from "./styles";
+import { Title, Form, Repos, Error } from "./styles";
 import { api } from "../../services/api";
 import logo from "../../assets/logo.svg";
+import { stringify } from "querystring";
 
-interface GithubReposutory {
+interface GitHubRepository {
   description: string;
   full_name: string;
   owner: {
@@ -16,8 +17,18 @@ interface GithubReposutory {
 }
 
 export const Dashboard: React.FC = () => {
+  const [repos, setRepos] = useState<GitHubRepository[]>(() => {
+    const storageRepos = localStorage.getItem("@GitCollection:repositories");
+    if (storageRepos) return JSON.parse(storageRepos);
+    else return [];
+  });
   const [search, setSearch] = useState("");
-  const [respos, setRepos] = useState<GithubReposutory[]>([]);
+  const [error, setError] = useState("");
+
+  //Assim que o componente foi criado, e em toda vez que a dependencia repos for alterada, executamos o hook abaixo
+  useEffect(() => {
+    localStorage.setItem("@GitCollection:repositories", JSON.stringify(repos));
+  }, [repos]);
 
   // TODO: Delete unused stuff
   // function handleSearchChanges(event: ChangeEvent<HTMLInputElement>) {
@@ -28,13 +39,28 @@ export const Dashboard: React.FC = () => {
     setSearch(event.target.value);
   };
 
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    event.preventDefault();
+
+    if (!search) {
+      setError("Your search makes no sense!");
+      return;
+    }
+
+    const response = await api.get<GitHubRepository>(`repos/${search}`);
+    const repository = response.data;
+    setRepos([...repos, repository]);
+  }
+
   return (
     <>
       <img src={logo} alt="Git Repository" />
       <Title>Repositories list</Title>
 
       {/* TODO: Convert this to a separared component */}
-      <Form>
+      <Form onSubmit={handleSubmit} hasError={Boolean(error)}>
         <input
           placeholder="username/reposirory"
           onChange={handleSearchChanges}
@@ -42,19 +68,22 @@ export const Dashboard: React.FC = () => {
         <button type="submit">Search</button>
       </Form>
 
+      {error && <Error>{error}</Error>}
+
       {/* TODO: Convert this to a separared component */}
       <Repos>
-        <a href="/repositories">
-          <img
-            src="https://avatars.githubusercontent.com/u/16120290?v=4"
-            alt="Repository"
-          />
-          <div>
-            <strong>Teste</strong>
-            <p>Some description here</p>
-          </div>
-          <FiChevronRight size={20} />
-        </a>
+        {repos.map((repo) => {
+          return (
+            <a href="/repositories" key={repo.full_name}>
+              <img src={repo.owner.avatar_url} alt={repo.owner.login} />
+              <div>
+                <strong>{repo.full_name}</strong>
+                <p>{repo.description}</p>
+              </div>
+              <FiChevronRight size={20} />
+            </a>
+          );
+        })}
       </Repos>
     </>
   );

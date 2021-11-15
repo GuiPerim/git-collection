@@ -21,3 +21,5 @@ export const Header = styled.header`
     }
   }
 `;
+
+export const RepoInfo = styled.div``;

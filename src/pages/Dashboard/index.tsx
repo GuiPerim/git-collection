@@ -1,10 +1,10 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { FiChevronRight } from "react-icons/fi";
 import { Title, Form, Repos, Error } from "./styles";
 import { api } from "../../services/api";
 import logo from "../../assets/logo.svg";
-import { stringify } from "querystring";
 
 interface GitHubRepository {
   description: string;
@@ -72,16 +72,19 @@ export const Dashboard: React.FC = () => {
 
       {/* TODO: Convert this to a separared component */}
       <Repos>
-        {repos.map((repo) => {
+        {repos.map((repo, index) => {
           return (
-            <a href={`/repositories/${repo.full_name}`} key={repo.full_name}>
+            <Link
+              to={`/repositories/${repo.full_name}`}
+              key={repo.full_name + index}
+            >
               <img src={repo.owner.avatar_url} alt={repo.owner.login} />
               <div>
                 <strong>{repo.full_name}</strong>
                 <p>{repo.description}</p>
               </div>
               <FiChevronRight size={20} />
-            </a>
+            </Link>
           );
         })}
       </Repos>

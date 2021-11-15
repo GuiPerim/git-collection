@@ -1,5 +1,8 @@
 import React, { FC } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
+import { FiChevronLeft } from "react-icons/fi";
+import { Header } from "./styles";
+import logo from "../../assets/logo.svg";
 
 interface RepositoryParams {
   repository: string;
@@ -7,5 +10,17 @@ interface RepositoryParams {
 
 export const Repo: FC = () => {
   const { params } = useRouteMatch<RepositoryParams>();
-  return <h1>Repo : {params.repository}</h1>;
+
+  return (
+    <>
+      <Header>
+        <img src={logo} alt="Git Repository" />
+
+        <Link to="/">
+          <FiChevronLeft size={20} />
+          Back
+        </Link>
+      </Header>
+    </>
+  );
 };

@@ -1,14 +1,7 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  MouseEvent,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { FiChevronRight, FiTrash } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 import { Title, Form, Repos, Error } from "./styles";
 import { api } from "../../services/api";
 import logo from "../../assets/logo.svg";

@@ -30,11 +30,6 @@ const Dashboard: React.FC = () => {
     localStorage.setItem("@GitCollection:repositories", JSON.stringify(repos));
   }, [repos]);
 
-  // TODO: Delete unused stuff
-  // function handleSearchChanges(event: ChangeEvent<HTMLInputElement>) {
-  //   console.log(event.target.value);
-  //   setSearch(event.target.value);
-  // }
   const handleSearchChanges = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
@@ -62,7 +57,7 @@ const Dashboard: React.FC = () => {
       {/* TODO: Convert this to a separared component */}
       <Form onSubmit={handleSubmit} hasError={Boolean(error)}>
         <input
-          placeholder="username/reposirory"
+          placeholder="username/reposirory (eg.: GuiPerim/git-collection)"
           onChange={handleSearchChanges}
         />
         <button type="submit">Search</button>

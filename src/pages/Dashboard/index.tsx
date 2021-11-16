@@ -1,7 +1,14 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  MouseEvent,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 
-import { FiChevronRight } from "react-icons/fi";
+import { FiChevronRight, FiTrash } from "react-icons/fi";
 import { Title, Form, Repos, Error } from "./styles";
 import { api } from "../../services/api";
 import logo from "../../assets/logo.svg";
@@ -16,7 +23,7 @@ interface GitHubRepository {
   };
 }
 
-export const Dashboard: React.FC = () => {
+const Dashboard: React.FC = () => {
   const [repos, setRepos] = useState<GitHubRepository[]>(() => {
     const storageRepos = localStorage.getItem("@GitCollection:repositories");
     if (storageRepos) return JSON.parse(storageRepos);
@@ -91,3 +98,5 @@ export const Dashboard: React.FC = () => {
     </>
   );
 };
+
+export default Dashboard;
